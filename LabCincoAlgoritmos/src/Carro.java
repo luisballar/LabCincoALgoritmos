@@ -69,7 +69,5 @@ Carro derecho;
                 ", year=" + year +
                 ", color=" + color;
     }
-
-
 }
 

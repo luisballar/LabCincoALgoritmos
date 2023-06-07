@@ -1,45 +1,78 @@
+import java.util.Scanner;
+
 public class ArbolDeBusquedaBinaria {
 
+Carro raiz;
+    Scanner entrada = new Scanner(System.in);
 
-    public void preOrder(Carro carro){
-        if(isEmpty(carro)) {
-            System.out.println("No hay elementos");
-        }else{
-            System.out.println(carro);
-            preOrder(carro.getIzquierdo());
-            preOrder(carro.getDerecho());
-        }
-
-    }
-
-    public void postOrder(Carro carro){
-        if (isEmpty(carro)) {
-            System.out.println("No hay elementos");
-        }else{
-            postOrder(carro.getIzquierdo());
-            postOrder(carro.getIzquierdo());
-            System.out.println(carro);
-        }
-
-    }
-
-    public void inOrder(Carro carro){
-        if(isEmpty(carro)){
-            System.out.println("No hay elementos");
-        }else{
-            inOrder(carro.getIzquierdo());
-            System.out.println(carro);
-            inOrder(carro.getDerecho());
-        }
-    }
-
-    private boolean isEmpty(Carro carro){
-        if(carro == null)
-            return true;
-        else
-            return false;
-
-    }
-
+ArbolDeBusquedaBinaria(){
+    raiz = null;
 }
 
+    public void menuPrincipal(){
+        StringBuilder sB = new StringBuilder("Menu Principal")
+                .append("\n Elija una opción:")
+                .append("\n Opción 1: Agregar un carro")
+                .append("\n Opción 2: Eliminar un carro ")
+                .append("\n Opción 3: Mostrar en orden PreOrden ")
+                .append("\n Opción 4: Mostrar en orden EnOrden ")
+                .append("\n Opción 5: Mostrar en orden PostOrden")
+                .append("\n Opción 6: Salir\n");
+        System.out.println(sB.toString());
+        entradaOpcion();
+    }
+
+    public void entradaOpcion() {
+        int opcion = entrada.nextInt();
+        while (opcion >= 1 || opcion < 6) {
+            switch (opcion) {
+                case 1:
+                    //Insertar un carro
+                case 2:
+                    //Borrar un carro
+                case 3:
+                    //Preorden
+                case 4:
+                    //Enorden
+                case 5:
+                    //PostOrden
+
+                    // si la entrada 6 sale completamente
+                    if (opcion == 6) {
+                        System.out.println("HA SALIDO DEL MENÚ");
+                        break;
+                    }
+                    System.out.println("\n| | | INGRESE OTRA OPCIÓN | | | ");
+                    opcion = entrada.nextInt();
+            }
+        }
+
+        public void carroInfo() {
+            entrada.nextLine();
+
+            System.out.println("Ingrese un id o placa para el carro");
+            int idPlaca = entrada.nextInt();
+            System.out.println("idPlaca es: " + idPlaca + "\n");
+
+            System.out.println("Ingrese el modelo del carro ");
+            String modelo = entrada.next();
+            System.out.println("Modelo: " + modelo + "\n");
+
+            System.out.println("Ingrese el año del carro ");
+            int year = entrada.nextInt();
+            System.out.println("El año del carro es:" + year + "\n");
+
+            System.out.println("Ingrese el color del carro ");
+            String color = entrada.next();
+            System.out.println("El color del carro es: " + color + "\n");
+
+            Carro car = new Carro(idPlaca, modelo, year, color);
+        }
+    }
+
+
+
+
+
+
+    }

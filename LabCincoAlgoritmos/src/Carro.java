@@ -6,7 +6,7 @@ String color;
 Carro izquierdo;
 Carro derecho;
 
-    public Carro(int idPlaca, String modelo, int year, String color, Carro izquierdo, Carro derecho) {
+    public Carro(int idPlaca, String modelo, int year, String color) {
         this.idPlaca = idPlaca;
         this.modelo = modelo;
         this.year = year;

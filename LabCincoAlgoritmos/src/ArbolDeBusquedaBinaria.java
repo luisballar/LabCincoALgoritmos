@@ -1,10 +1,101 @@
+import java.util.Scanner;
+
 public class ArbolDeBusquedaBinaria {
+    Carro raiz;
+    Scanner entrada = new Scanner(System.in);
 
 
-    public void preOrder(Carro carro){
-        if(isEmpty(carro)) {
+    // apuntamos la raiz a null
+    public ArbolDeBusquedaBinaria() {
+        this.raiz = null;
+    }
+
+
+    // menú principal que muestra las funcionalidades
+    public void menuPrincipal() {
+        StringBuilder sB = new StringBuilder("Menu Principal")
+                .append("\n Elija una opción:")
+                .append("\n Opción 1: Agregar un carro")
+                .append("\n Opción 2: Eliminar un carro ")
+                .append("\n Opción 3: Mostrar en orden PreOrden ")
+                .append("\n Opción 4: Mostrar en orden EnOrden ")
+                .append("\n Opción 5: Mostrar en orden PostOrden")
+                .append("\n Opción 6: Salir\n");
+        System.out.println(sB);
+        entradaOpcion();
+    }
+
+
+    // método que da funcionalidad al menú
+    public void entradaOpcion() {
+
+        int opcion = entrada.nextInt();
+
+        while (opcion >= 1 || opcion < 6) {
+            switch (opcion) {
+                case 1:
+                    System.out.println("Funciona");
+                    //Insertar un carro
+                    break;
+                case 2:
+                    //Borrar un carro
+                    System.out.println("Funciona");
+                    break;
+                case 3:
+                    //Preorden
+                    preOrder(raiz);
+                    break;
+                case 4:
+                    //Enorden
+                    System.out.println("Funciona");
+                    break;
+                case 5:
+                    //PostOrden
+                    System.out.println("Funciona");
+
+            }
+
+            // si la entrada 6 sale completamente
+            if(opcion == 6) {
+                System.out.println("HA SALIDO DEL MENÚ");
+                break;
+            }
+            System.out.println("\n| | | INGRESE OTRA OPCIÓN | | | ");
+            opcion = entrada.nextInt();
+        }
+    }
+
+
+    // método que permite ingresarle los atributos al Carro
+    public void carroInfo() {
+        entrada.nextLine();
+
+        System.out.println("Ingrese un id o placa para el carro");
+        int idPlaca = entrada.nextInt();
+        System.out.println("idPlaca es: " + idPlaca + "\n");
+
+        System.out.println("Ingrese el modelo del carro ");
+        String modelo = entrada.next();
+        System.out.println("Modelo: " + modelo + "\n");
+
+        System.out.println("Ingrese el año del carro ");
+        int year = entrada.nextInt();
+        System.out.println("El año del carro es:" + year + "\n");
+
+        System.out.println("Ingrese el color del carro ");
+        String color = entrada.next();
+        System.out.println("El color del carro es: " + color + "\n");
+
+        Carro car = new Carro(idPlaca, modelo, year, color);
+    }
+
+
+
+    // método para recorrer el árbol en preOrden
+    public void preOrder(Carro carro) {
+        if (isEmpty(carro)) {
             System.out.println("No hay elementos");
-        }else{
+        } else {
             System.out.println(carro);
             preOrder(carro.getIzquierdo());
             preOrder(carro.getDerecho());
@@ -12,10 +103,12 @@ public class ArbolDeBusquedaBinaria {
 
     }
 
-    public void postOrder(Carro carro){
+
+    // método para recorrer el árbol en postOrden
+    public void postOrder(Carro carro) {
         if (isEmpty(carro)) {
             System.out.println("No hay elementos");
-        }else{
+        } else {
             postOrder(carro.getIzquierdo());
             postOrder(carro.getIzquierdo());
             System.out.println(carro);
@@ -23,18 +116,51 @@ public class ArbolDeBusquedaBinaria {
 
     }
 
-    public void inOrder(Carro carro){
-        if(isEmpty(carro)){
+    // método para recorrer el árbol en inOrden
+    public void inOrder(Carro carro) {
+        if (isEmpty(carro)) {
             System.out.println("No hay elementos");
-        }else{
+        } else {
             inOrder(carro.getIzquierdo());
             System.out.println(carro);
             inOrder(carro.getDerecho());
         }
     }
 
-    private boolean isEmpty(Carro carro){
-        if(carro == null)
+
+    // método que busca un nodo con la llave pasada por parámetro
+    public void searchKey(int llave){
+        Carro buscador = raiz;
+
+        boolean encontrado = false;
+
+        while (buscador.getIdPlaca() != llave && !encontrado){
+
+            if(llave == buscador.getIdPlaca()) {
+                System.out.println("Carro encontrado:\n" + raiz.toString());
+                encontrado = true;
+                break;
+            }
+
+
+            // se procede a buscar en un ABS
+            if(llave < raiz.getIdPlaca()) {
+                buscador = buscador.getIzquierdo();
+            }
+             else
+                 buscador = buscador.getDerecho();
+        }
+
+        // si no encuentra el nodo a buscar
+        if(isEmpty(buscador) && !encontrado)
+            System.out.println("No se encontró");
+
+    }
+
+
+    // método de utilidad para verificar si un árbol está vacío
+    private boolean isEmpty(Carro carro) {
+        if (carro == null)
             return true;
         else
             return false;
@@ -42,4 +168,9 @@ public class ArbolDeBusquedaBinaria {
     }
 
 }
+
+
+
+
+
 

@@ -23,7 +23,5 @@ Carro izquierdo, derecho;
                 ", color=" + color +
                 "}";
     }
-
-
 }
 

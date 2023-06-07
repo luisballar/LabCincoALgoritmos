@@ -25,6 +25,7 @@ public class ArbolDeBusquedaBinaria {
                 .append("\n Opción 6: Salir\n");
         System.out.println(sB);
         entradaOpcion();
+
     }
 
 

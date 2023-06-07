@@ -36,12 +36,17 @@ public class ArbolDeBusquedaBinaria {
         while (opcion >= 1 || opcion < 6) {
             switch (opcion) {
                 case 1:
-                    System.out.println("Funciona");
-                    //Insertar un carro
+                    //Inserta un carro
+                    carroInfo();
+                    System.out.println("Ingresando Carro");
                     break;
+
                 case 2:
-                    //Borrar un carro
-                    System.out.println("Funciona");
+                    //Borrar un carro por número de placa
+                    System.out.println("Ingrese un número de placa para borrar un carro");
+                    int placaABorrar = entrada.nextInt();
+                    delete(placaABorrar);
+                    System.out.println("Borrando Carro");
                     break;
                 case 3:
                     //Preorden
@@ -66,7 +71,6 @@ public class ArbolDeBusquedaBinaria {
             opcion = entrada.nextInt();
         }
     }
-
 
     // método que permite ingresarle los atributos al Carro
     public void carroInfo() {
@@ -122,9 +126,27 @@ public class ArbolDeBusquedaBinaria {
             return raiz;
         if(idPlaca < raiz.idPlaca)
             raiz.izquierdo = deleteCarro(raiz.izquierdo, idPlaca);
-        else if(idPlaca) {
-
+        else if(idPlaca > raiz.idPlaca)
+        raiz.derecho = deleteCarro(raiz.derecho, idPlaca);
+        else{
+            if(raiz.izquierdo == null)
+                return raiz.derecho;
+            else if(raiz.derecho == null){
+                return raiz.izquierdo;
+            }
+            raiz = minValue(raiz.derecho);
+            raiz.derecho = deleteCarro(raiz.derecho, raiz.idPlaca);
         }
+        return raiz;
+    }
+
+    public Carro minValue(Carro raiz){
+        Carro minValue = raiz;
+        while(raiz.izquierdo != null){
+            minValue = raiz.izquierdo;
+            raiz = raiz.izquierdo;
+        }
+        return minValue;
     }
 
 

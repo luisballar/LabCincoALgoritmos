@@ -47,32 +47,28 @@ ArbolDeBusquedaBinaria(){
             }
         }
 
-        public void carroInfo() {
-            entrada.nextLine();
+    }public void carroInfo() {
+        entrada.nextLine();
 
-            System.out.println("Ingrese un id o placa para el carro");
-            int idPlaca = entrada.nextInt();
-            System.out.println("idPlaca es: " + idPlaca + "\n");
+        System.out.println("Ingrese un id o placa para el carro");
+        int idPlaca = entrada.nextInt();
+        System.out.println("idPlaca es: " + idPlaca + "\n");
 
-            System.out.println("Ingrese el modelo del carro ");
-            String modelo = entrada.next();
-            System.out.println("Modelo: " + modelo + "\n");
+        System.out.println("Ingrese el modelo del carro ");
+        String modelo = entrada.next();
+        System.out.println("Modelo: " + modelo + "\n");
 
-            System.out.println("Ingrese el año del carro ");
-            int year = entrada.nextInt();
-            System.out.println("El año del carro es:" + year + "\n");
+        System.out.println("Ingrese el año del carro ");
+        int year = entrada.nextInt();
+        System.out.println("El año del carro es:" + year + "\n");
 
-            System.out.println("Ingrese el color del carro ");
-            String color = entrada.next();
-            System.out.println("El color del carro es: " + color + "\n");
+        System.out.println("Ingrese el color del carro ");
+        String color = entrada.next();
+        System.out.println("El color del carro es: " + color + "\n");
 
-            Carro car = new Carro(idPlaca, modelo, year, color);
-        }
+        Carro car = new Carro(idPlaca, modelo, year, color);
+        insert(carroInfo());
     }
-
-
-
-
 
 
     }

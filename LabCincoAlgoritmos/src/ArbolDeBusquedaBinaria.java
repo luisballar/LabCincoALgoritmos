@@ -1,3 +1,5 @@
+import org.w3c.dom.Node;
+
 import java.util.Scanner;
 
 public class ArbolDeBusquedaBinaria {
@@ -86,7 +88,27 @@ public class ArbolDeBusquedaBinaria {
         String color = entrada.next();
         System.out.println("El color del carro es: " + color + "\n");
 
-        Carro car = new Carro(idPlaca, modelo, year, color);
+        Carro carro = new Carro(idPlaca, modelo, year, color);
+        insert(carro);
+    }
+
+//métodos insert y insertCarro insertan de manera ordena los carros al árbol
+    public void insert(Carro carro){
+        raiz = insertCarro(raiz, carro);
+
+    }
+
+    public Carro insertCarro(Carro raiz, Carro nuevoCarro){
+        if(raiz == null){
+            raiz = nuevoCarro;
+            return raiz;
+        }
+        if(nuevoCarro.idPlaca < raiz.idPlaca)
+            raiz.izquierdo = insertCarro(raiz.izquierdo, nuevoCarro);
+        else if(nuevoCarro.idPlaca > raiz.idPlaca) {
+            raiz.derecho = insertCarro(raiz.derecho, nuevoCarro);
+        }
+        return raiz;
     }
 
 

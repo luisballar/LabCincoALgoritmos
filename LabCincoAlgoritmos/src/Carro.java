@@ -11,8 +11,8 @@ Carro derecho;
         this.modelo = modelo;
         this.year = year;
         this.color = color;
-        this.izquierdo = izquierdo;
-        this.derecho = derecho;
+        this.izquierdo = null;
+        this.derecho = null;
     }
 
     public int getIdPlaca() {

@@ -47,7 +47,7 @@ ArbolDeBusquedaBinaria(){
         }
     }
 
-    public void infoCarro(){
+    public void estudianteInfo(){
                 entrada.nextLine();
 
                 System.out.println("Ingrese un id o placa para el carro");

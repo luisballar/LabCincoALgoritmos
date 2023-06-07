@@ -111,6 +111,23 @@ public class ArbolDeBusquedaBinaria {
         return raiz;
     }
 
+    //Métodos para borrar un carro del árbol
+
+    public void delete(int idPlaca){
+        raiz = deleteCarro(raiz, idPlaca);
+    }
+
+    public Carro deleteCarro(Carro raiz, int idPlaca){
+        if(raiz == null)
+            return raiz;
+        if(idPlaca < raiz.idPlaca)
+            raiz.izquierdo = deleteCarro(raiz.izquierdo, idPlaca);
+        else if(idPlaca) {
+
+        }
+    }
+
+
 
 
     // método para recorrer el árbol en preOrden

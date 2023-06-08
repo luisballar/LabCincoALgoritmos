@@ -45,7 +45,7 @@ public class ArbolDeBusquedaBinaria {
                     //Borrar un carro por número de placa
                     System.out.println("Ingrese un número de placa para borrar un carro");
                     int placaABorrar = entrada.nextInt();
-                    delete(placaABorrar);
+                    borrado(raiz,placaABorrar);
                     //System.out.println("Borrando Carro");
                     break;
                 case 3:
@@ -102,54 +102,65 @@ public class ArbolDeBusquedaBinaria {
         System.out.println("El color del carro es: " + color + "\n");
 
         Carro carro = new Carro(idPlaca, modelo, year, color);
-        insert(carro);
+        insertar(carro);
     }
 
 //métodos insert y insertCarro insertan de manera ordena los carros al árbol
-    public void insert(Carro carro){
-        raiz = insertCarro(raiz, carro);
-
+    public void insertar(Carro carro){
+        if (this.raiz == null){
+            this.raiz = carro;
+        } else {
+            this.insertar(this.raiz, carro);
+        }
     }
 
-    public Carro insertCarro(Carro raiz, Carro nuevoCarro){
-        if(raiz == null){
-            raiz = nuevoCarro;
-            return raiz;
+    private void insertar(Carro nodoActual, Carro nuevoNodo){
+        if (nodoActual.getIdPlaca() > nuevoNodo.getIdPlaca()){
+            if (nodoActual.derecho == null){
+                nodoActual.izquierdo = nuevoNodo;
+            } else {
+                this.insertar(nodoActual.derecho, nuevoNodo);
+            }
+        } else {
+            if (nodoActual.izquierdo == null){
+                nodoActual.izquierdo = nuevoNodo;
+            } else {
+                this.insertar(nodoActual.izquierdo, nuevoNodo);
+            }
         }
-        if(nuevoCarro.idPlaca < raiz.idPlaca)
-            raiz.izquierdo = insertCarro(raiz.izquierdo, nuevoCarro);
-        else if(nuevoCarro.idPlaca > raiz.idPlaca) {
-            raiz.derecho = insertCarro(raiz.derecho, nuevoCarro);
-        }
-        return raiz;
     }
+
 
     //Métodos para borrar un carro del árbol
-
-    public void delete(int idPlaca){
-        raiz = deleteCarro(raiz, idPlaca);
-    }
-
-    public Carro deleteCarro(Carro raiz, int idPlaca){
+    public Carro borrado(Carro raiz, int IdPlacaBuscar){
         if(raiz == null)
             return raiz;
 
-        if(idPlaca < raiz.idPlaca)
-            raiz.izquierdo = deleteCarro(raiz.izquierdo, idPlaca);
-        else if(idPlaca > raiz.idPlaca)
-        raiz.derecho = deleteCarro(raiz.derecho, idPlaca);
-        else{
-            if(raiz.izquierdo == null)
-                return raiz.derecho;
-            else if(raiz.derecho == null){
-                return raiz.izquierdo;
-            }
-            raiz = minValue(raiz.derecho);
-            raiz.derecho = deleteCarro(raiz.derecho, raiz.idPlaca);
+        if(IdPlacaBuscar < raiz.getIdPlaca())
+            raiz.izquierdo = borrado(raiz.izquierdo,IdPlacaBuscar);
+
+        if(IdPlacaBuscar > raiz.getIdPlaca())
+            raiz.izquierdo = borrado(raiz.derecho,IdPlacaBuscar);
+
+        if(raiz.izquierdo == null){
+            Carro prestado = raiz.derecho;
+            raiz = null;
+            return prestado;
         }
+
+        if(raiz.derecho == null){
+            Carro prestado = raiz.izquierdo;
+            raiz = null;
+            return prestado;
+        }
+
+        Carro prestado = minValue(raiz.derecho);
+        raiz.idPlaca = prestado.idPlaca;
+        raiz.derecho = borrado(raiz.derecho, prestado.idPlaca);
 
         return raiz;
     }
+
 
     public Carro minValue(Carro raiz){
         Carro minValue = raiz;
@@ -237,9 +248,3 @@ public class ArbolDeBusquedaBinaria {
     }
 
 }
-
-
-
-
-
-

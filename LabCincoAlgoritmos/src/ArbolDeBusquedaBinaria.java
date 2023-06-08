@@ -46,20 +46,23 @@ public class ArbolDeBusquedaBinaria {
                     System.out.println("Ingrese un número de placa para borrar un carro");
                     int placaABorrar = entrada.nextInt();
                     delete(placaABorrar);
-                    System.out.println("Borrando Carro");
+                    //System.out.println("Borrando Carro");
                     break;
                 case 3:
                     //Preorden
+                    System.out.println("Haciendo el recorrido en preorden");
                     preOrder(raiz);
                     break;
                 case 4:
                     //Enorden
-                    System.out.println("Funciona");
+                    System.out.println("Haciendo el recorrido enorden");
+                    inOrder(raiz);
                     break;
                 case 5:
                     //PostOrden
-                    System.out.println("Funciona");
-
+                    System.out.println("Haciendo el recorrido en postorden");
+                    postOrder(raiz);
+                    break;
             }
 
             // si la entrada 6 sale completamente
@@ -67,7 +70,13 @@ public class ArbolDeBusquedaBinaria {
                 System.out.println("HA SALIDO DEL MENÚ");
                 break;
             }
-            System.out.println("\n| | | INGRESE OTRA OPCIÓN | | | ");
+            System.out.println("\n| | | INGRESE OTRA OPCIÓN | | | "
+                    + "\n Opción 1: Agregar un carro"
+                    + "\n Opción 2: Eliminar un carro "
+                    + "\n Opción 3: Mostrar en orden PreOrden "
+                    + "\n Opción 4: Mostrar en orden EnOrden "
+                    + "\n Opción 5: Mostrar en orden PostOrden"
+                    + "\n Opción 6: Salir\n");
             opcion = entrada.nextInt();
         }
     }
@@ -124,6 +133,7 @@ public class ArbolDeBusquedaBinaria {
     public Carro deleteCarro(Carro raiz, int idPlaca){
         if(raiz == null)
             return raiz;
+
         if(idPlaca < raiz.idPlaca)
             raiz.izquierdo = deleteCarro(raiz.izquierdo, idPlaca);
         else if(idPlaca > raiz.idPlaca)
@@ -137,6 +147,7 @@ public class ArbolDeBusquedaBinaria {
             raiz = minValue(raiz.derecho);
             raiz.derecho = deleteCarro(raiz.derecho, raiz.idPlaca);
         }
+
         return raiz;
     }
 
@@ -148,9 +159,6 @@ public class ArbolDeBusquedaBinaria {
         }
         return minValue;
     }
-
-
-
 
     // método para recorrer el árbol en preOrden
     public void preOrder(Carro carro) {

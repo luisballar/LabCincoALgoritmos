@@ -172,40 +172,6 @@ public void insertar(Carro carro){
     }
 
     // método para recorrer el árbol en preOrden
-    public void preOrder(Carro carro) {
-        if (isEmpty(carro)) {
-            System.out.println("No hay elementos");
-        } else {
-            System.out.println(carro);
-            preOrder(carro.getIzquierdo());
-            preOrder(carro.getDerecho());
-        }
-
-    }
-
-
-    // método para recorrer el árbol en postOrden
-    public void postOrder(Carro carro) {
-        if (isEmpty(carro)) {
-            System.out.println("No hay elementos");
-        } else {
-            postOrder(carro.getIzquierdo());
-            postOrder(carro.getIzquierdo());
-            System.out.println(carro);
-        }
-
-    }
-
-    // método para recorrer el árbol en inOrden
-    public void inOrder(Carro carro) {
-        if (isEmpty(carro)) {
-            System.out.println("No hay elementos");
-        } else {
-            inOrder(carro.getIzquierdo());
-            System.out.println(carro);
-            inOrder(carro.getDerecho());
-        }
-    }
 
 /*
     // método que busca un nodo con la llave pasada por parámetro

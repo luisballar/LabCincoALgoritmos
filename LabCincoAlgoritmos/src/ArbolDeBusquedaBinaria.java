@@ -110,22 +110,22 @@ public void insertar(Carro carro){
     if (this.raiz == null){
         this.raiz = carro;
     } else {
-        this.insertarRecursivo(this.raiz, carro);
+        this.insertarCarro(this.raiz, carro);
     }
 }
 
-    private void insertarRecursivo(Carro raiz, Carro carro){
+    private void insertarCarro(Carro raiz, Carro carro){
         if (raiz.idPlaca > carro.idPlaca){
             if (raiz.izquierdo == null){
                 raiz.izquierdo = carro;
             } else {
-                this.insertarRecursivo(raiz.izquierdo, carro);
+                this.insertarCarro(raiz.izquierdo, carro);
             }
         } else {
             if (raiz.derecho == null){
                 raiz.derecho = carro;
             } else {
-                this.insertarRecursivo(raiz.derecho, carro);
+                this.insertarCarro(raiz.derecho, carro);
             }
         }
     }
@@ -137,48 +137,38 @@ public void insertar(Carro carro){
             return raiz;
 
         if(IdBorrar < raiz.idPlaca)
-            nodo.setIzquierda(borrado(nodo.getIzquierda(),ID));
+            raiz.izquierdo = borrado(raiz.izquierdo,IdBorrar);
 
-        if(ID > nodo.getID())
-            nodo.setDerecha(borrado(nodo.getDerecha(),ID));
+        if(IdBorrar > raiz.idPlaca)
+            raiz.derecho = borrado(raiz.derecho, IdBorrar);
 
-        if(nodo.getIzquierda() == null){
-            NodoPersona temp = nodo.getDerecha();
-            nodo = null;
-            return temp;
+        if(raiz.izquierdo == null){
+            Carro prestado = raiz.derecho;
+            raiz = null;
+            return prestado;
         }
 
-        if(nodo.getDerecha() == null){
-            NodoPersona temp = nodo.getIzquierda();
-            nodo = null;
-            return temp;
+        if(raiz.derecho == null){
+            Carro prestado = raiz.izquierdo;
+            raiz = null;
+            return prestado;
         }
 
-        NodoPersona temp = obtenerMinimo(nodo.getDerecha());
-        nodo.setID(temp.getID());
-        nodo.setDerecha(borrado(nodo.getDerecha(),temp.getID()));
+        Carro prestado = minValue(raiz.derecho);
+        raiz.idPlaca = prestado.idPlaca;
+        raiz.derecho = borrado(raiz.derecho, prestado.idPlaca);
 
-        return nodo;
+        return raiz;
     }
 
-    public NodoPersona obtenerMinimo(NodoPersona nodo){
-        NodoPersona actual = nodo;
+    public Carro minValue(Carro raiz){
+        Carro actual = raiz;
 
-        while(actual != null && actual.getIzquierda() != null){
-            actual = actual.getIzquierda();
+        while(actual != null && actual.izquierdo != null){
+            actual = actual.izquierdo;
         }
 
         return actual;
-    }
-
-
-    public Carro minValue(Carro raiz){
-        Carro minValue = raiz;
-        while(raiz.izquierdo != null){
-            minValue = raiz.izquierdo;
-            raiz = raiz.izquierdo;
-        }
-        return minValue;
     }
 
     // método para recorrer el árbol en preOrden

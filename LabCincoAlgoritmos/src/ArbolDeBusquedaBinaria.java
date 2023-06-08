@@ -130,47 +130,6 @@ public class ArbolDeBusquedaBinaria {
         }
     }
 
-    //Métodos para borrar un carro del árbol
-
-    public Carro borrado(Carro raiz, int IdBorrar){
-        if(raiz == null)
-            return raiz;
-
-        if(IdBorrar < raiz.idPlaca)
-            raiz.izquierdo = borrado(raiz.izquierdo,IdBorrar);
-
-        if(IdBorrar > raiz.idPlaca)
-            raiz.derecho = borrado(raiz.derecho, IdBorrar);
-
-        if(raiz.izquierdo == null){
-            Carro prestado = raiz.derecho;
-            raiz = null;
-            return prestado;
-        }
-
-        if(raiz.derecho == null){
-            Carro prestado = raiz.izquierdo;
-            raiz = null;
-            return prestado;
-        }
-
-        Carro prestado = minValue(raiz.derecho);
-        raiz.idPlaca = prestado.idPlaca;
-        raiz.derecho = borrado(raiz.derecho, prestado.idPlaca);
-
-        return raiz;
-    }
-
-    public Carro minValue(Carro raiz){
-        Carro actual = raiz;
-
-        while(actual != null && actual.izquierdo != null){
-            actual = actual.izquierdo;
-        }
-
-        return actual;
-    }
-
     public void preOrder(Carro carro) {
         if (carro == null) {
             return;
@@ -204,6 +163,7 @@ public class ArbolDeBusquedaBinaria {
         }
     }
 
+    //
     public Carro deleteRecursively(Carro root, int llave) {
 
         if (root == null)
@@ -220,7 +180,7 @@ public class ArbolDeBusquedaBinaria {
             } else if (root.derecho == null)
                 return root.izquierdo;
 
-            root = inOrderSuccessor(root.derecho);
+            root = successor(root.derecho);
             root.derecho = deleteRecursively(root.derecho, root.getIdPlaca());
         }
 
@@ -228,7 +188,8 @@ public class ArbolDeBusquedaBinaria {
 
     }
 
-    public Carro inOrderSuccessor(Carro root) {
+    // método de utilidad para conocer nodo sucesor
+    private Carro successor(Carro root) {
         Carro minimum = root;
         while (root.izquierdo != null) {
             minimum = root.izquierdo;

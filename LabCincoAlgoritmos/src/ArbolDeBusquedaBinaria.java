@@ -207,7 +207,7 @@ public void insertar(Carro carro){
         }
     }
 
-
+/*
     // método que busca un nodo con la llave pasada por parámetro
     public void searchKey(int llave){
         Carro buscador = raiz;
@@ -247,4 +247,6 @@ public void insertar(Carro carro){
 
     }
 
+
+ */
 }

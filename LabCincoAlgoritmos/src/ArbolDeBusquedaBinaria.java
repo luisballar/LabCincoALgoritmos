@@ -106,59 +106,69 @@ public class ArbolDeBusquedaBinaria {
     }
 
 //métodos insert y insertCarro insertan de manera ordena los carros al árbol
-    public void insertar(Carro carro){
-        if (this.raiz == null){
-            this.raiz = carro;
-        } else {
-            this.insertar(this.raiz, carro);
-        }
+public void insertar(Carro carro){
+    if (this.raiz == null){
+        this.raiz = carro;
+    } else {
+        this.insertarRecursivo(this.raiz, carro);
     }
+}
 
-    private void insertar(Carro nodoActual, Carro nuevoNodo){
-        if (nodoActual.getIdPlaca() > nuevoNodo.getIdPlaca()){
-            if (nodoActual.derecho == null){
-                nodoActual.izquierdo = nuevoNodo;
+    private void insertarRecursivo(Carro raiz, Carro carro){
+        if (raiz.idPlaca > carro.idPlaca){
+            if (raiz.izquierdo == null){
+                raiz.izquierdo = carro;
             } else {
-                this.insertar(nodoActual.derecho, nuevoNodo);
+                this.insertarRecursivo(raiz.izquierdo, carro);
             }
         } else {
-            if (nodoActual.izquierdo == null){
-                nodoActual.izquierdo = nuevoNodo;
+            if (raiz.derecho == null){
+                raiz.derecho = carro;
             } else {
-                this.insertar(nodoActual.izquierdo, nuevoNodo);
+                this.insertarRecursivo(raiz.derecho, carro);
             }
         }
     }
-
 
     //Métodos para borrar un carro del árbol
-    public Carro borrado(Carro raiz, int IdPlacaBuscar){
+
+    public Carro borrado(Carro raiz, int IdBorrar){
         if(raiz == null)
             return raiz;
 
-        if(IdPlacaBuscar < raiz.getIdPlaca())
-            raiz.izquierdo = borrado(raiz.izquierdo,IdPlacaBuscar);
+        if(IdBorrar < raiz.idPlaca)
+            nodo.setIzquierda(borrado(nodo.getIzquierda(),ID));
 
-        if(IdPlacaBuscar > raiz.getIdPlaca())
-            raiz.izquierdo = borrado(raiz.derecho,IdPlacaBuscar);
+        if(ID > nodo.getID())
+            nodo.setDerecha(borrado(nodo.getDerecha(),ID));
 
-        if(raiz.izquierdo == null){
-            Carro prestado = raiz.derecho;
-            raiz = null;
-            return prestado;
+        if(nodo.getIzquierda() == null){
+            NodoPersona temp = nodo.getDerecha();
+            nodo = null;
+            return temp;
         }
 
-        if(raiz.derecho == null){
-            Carro prestado = raiz.izquierdo;
-            raiz = null;
-            return prestado;
+        if(nodo.getDerecha() == null){
+            NodoPersona temp = nodo.getIzquierda();
+            nodo = null;
+            return temp;
         }
 
-        Carro prestado = minValue(raiz.derecho);
-        raiz.idPlaca = prestado.idPlaca;
-        raiz.derecho = borrado(raiz.derecho, prestado.idPlaca);
+        NodoPersona temp = obtenerMinimo(nodo.getDerecha());
+        nodo.setID(temp.getID());
+        nodo.setDerecha(borrado(nodo.getDerecha(),temp.getID()));
 
-        return raiz;
+        return nodo;
+    }
+
+    public NodoPersona obtenerMinimo(NodoPersona nodo){
+        NodoPersona actual = nodo;
+
+        while(actual != null && actual.getIzquierda() != null){
+            actual = actual.getIzquierda();
+        }
+
+        return actual;
     }
 
 

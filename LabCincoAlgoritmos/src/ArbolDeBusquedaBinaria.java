@@ -25,7 +25,6 @@ public class ArbolDeBusquedaBinaria {
                 .append("\n Opción 6: Salir\n");
         System.out.println(sB);
         entradaOpcion();
-
     }
 
 
@@ -46,7 +45,7 @@ public class ArbolDeBusquedaBinaria {
                     //Borrar un carro por número de placa
                     System.out.println("Ingrese un número de placa para borrar un carro");
                     int placaABorrar = entrada.nextInt();
-                    delete(placaABorrar);
+                    borrado(raiz,placaABorrar);
                     //System.out.println("Borrando Carro");
                     break;
                 case 3:
@@ -103,64 +102,75 @@ public class ArbolDeBusquedaBinaria {
         System.out.println("El color del carro es: " + color + "\n");
 
         Carro carro = new Carro(idPlaca, modelo, year, color);
-        insert(carro);
+        insertar(carro);
     }
 
-    // métodos insert y insertCarro insertan de manera ordena los carros al árbol
-    public void insert(Carro carro){
-        raiz = insertCarro(raiz, carro);
+    //métodos insert y insertCarro insertan de manera ordena los carros al árbol
+    public void insertar(Carro carro){
+        if (this.raiz == null){
+            this.raiz = carro;
+        } else {
+            this.insertarCarro(this.raiz, carro);
+        }
     }
 
-    public Carro insertCarro(Carro raiz, Carro nuevoCarro){
-        if(raiz == null){
-            raiz = nuevoCarro;
-            return raiz;
+    private void insertarCarro(Carro raiz, Carro carro){
+        if (raiz.idPlaca > carro.idPlaca){
+            if (raiz.izquierdo == null){
+                raiz.izquierdo = carro;
+            } else {
+                this.insertarCarro(raiz.izquierdo, carro);
+            }
+        } else {
+            if (raiz.derecho == null){
+                raiz.derecho = carro;
+            } else {
+                this.insertarCarro(raiz.derecho, carro);
+            }
         }
-        if(nuevoCarro.idPlaca < raiz.idPlaca)
-            raiz.izquierdo = insertCarro(raiz.izquierdo, nuevoCarro);
-        else if(nuevoCarro.idPlaca > raiz.idPlaca) {
-            raiz.derecho = insertCarro(raiz.derecho, nuevoCarro);
-        }
-        return raiz;
     }
 
     //Métodos para borrar un carro del árbol
 
-    public void delete(int idPlaca){
-        raiz = deleteCarro(raiz, idPlaca);
-    }
-
-    public Carro deleteCarro(Carro raiz, int idPlaca){
+    public Carro borrado(Carro raiz, int IdBorrar){
         if(raiz == null)
             return raiz;
 
-        if(idPlaca < raiz.idPlaca)
-            raiz.izquierdo = deleteCarro(raiz.izquierdo, idPlaca);
-        else if(idPlaca > raiz.idPlaca)
-        raiz.derecho = deleteCarro(raiz.derecho, idPlaca);
-        else{
-            if(raiz.izquierdo == null)
-                return raiz.derecho;
-            else if(raiz.derecho == null){
-                return raiz.izquierdo;
-            }
-            raiz = minValue(raiz.derecho);
-            raiz.derecho = deleteCarro(raiz.derecho, raiz.idPlaca);
+        if(IdBorrar < raiz.idPlaca)
+            raiz.izquierdo = borrado(raiz.izquierdo,IdBorrar);
+
+        if(IdBorrar > raiz.idPlaca)
+            raiz.derecho = borrado(raiz.derecho, IdBorrar);
+
+        if(raiz.izquierdo == null){
+            Carro prestado = raiz.derecho;
+            raiz = null;
+            return prestado;
         }
+
+        if(raiz.derecho == null){
+            Carro prestado = raiz.izquierdo;
+            raiz = null;
+            return prestado;
+        }
+
+        Carro prestado = minValue(raiz.derecho);
+        raiz.idPlaca = prestado.idPlaca;
+        raiz.derecho = borrado(raiz.derecho, prestado.idPlaca);
 
         return raiz;
     }
 
-    private Carro minValue(Carro raiz){
-        Carro minValue = raiz;
-        while(raiz.izquierdo != null){
-            minValue = raiz.izquierdo;
-            raiz = raiz.izquierdo;
+    public Carro minValue(Carro raiz){
+        Carro actual = raiz;
+
+        while(actual != null && actual.izquierdo != null){
+            actual = actual.izquierdo;
         }
-        return minValue;
+
+        return actual;
     }
 
-    // método para recorrer el árbol en preOrden
     public void preOrder(Carro carro) {
         if (carro == null) {
             return;
@@ -171,7 +181,6 @@ public class ArbolDeBusquedaBinaria {
         }
 
     }
-
 
     // método para recorrer el árbol en postOrden
     public void postOrder(Carro carro) {
@@ -187,7 +196,7 @@ public class ArbolDeBusquedaBinaria {
     // método para recorrer el árbol en inOrden
     public void inOrder(Carro carro) {
         if (carro == null) {
-            System.out.println();
+            return;
         } else {
             inOrder(carro.getIzquierdo());
             System.out.println(carro);
@@ -196,18 +205,7 @@ public class ArbolDeBusquedaBinaria {
     }
 
 
-    // método de utilidad para verificar si un árbol está vacío
-    private boolean isEmpty(Carro carro) {
-        if (carro == null)
-            return true;
-        else
-            return false;
-
-    }
-
-
-    /*
-
+/*
     // método que busca un nodo con la llave pasada por parámetro
     public void searchKey(int llave){
         Carro buscador = raiz;
@@ -238,13 +236,15 @@ public class ArbolDeBusquedaBinaria {
     }
 
 
-     */
+    // método de utilidad para verificar si un árbol está vacío
+    private boolean isEmpty(Carro carro) {
+        if (carro == null)
+            return true;
+        else
+            return false;
+
+    }
 
 
+ */
 }
-
-
-
-
-
-

@@ -45,7 +45,7 @@ public class ArbolDeBusquedaBinaria {
                     //Borrar un carro por número de placa
                     System.out.println("Ingrese un número de placa para borrar un carro");
                     int placaABorrar = entrada.nextInt();
-                    borrado(raiz,placaABorrar);
+                    deleteRecursively(raiz,placaABorrar);
                     //System.out.println("Borrando Carro");
                     break;
                 case 3:
@@ -202,6 +202,39 @@ public class ArbolDeBusquedaBinaria {
             System.out.println(carro);
             inOrder(carro.getDerecho());
         }
+    }
+
+    public Carro deleteRecursively(Carro root, int llave) {
+
+        if (root == null)
+            return root;
+
+        if (llave < root.getIdPlaca()) {
+            root.izquierdo = deleteRecursively(root.izquierdo, llave);
+        } else if (llave > root.getIdPlaca()) {
+            root.derecho = deleteRecursively(root.derecho, llave);
+        } else {
+
+            if (root.izquierdo == null) {
+                return root.derecho;
+            } else if (root.derecho == null)
+                return root.izquierdo;
+
+            root = inOrderSuccessor(root.derecho);
+            root.derecho = deleteRecursively(root.derecho, root.getIdPlaca());
+        }
+
+        return root;
+
+    }
+
+    public Carro inOrderSuccessor(Carro root) {
+        Carro minimum = root;
+        while (root.izquierdo != null) {
+            minimum = root.izquierdo;
+            root = root.izquierdo;
+        }
+        return minimum;
     }
 
 
